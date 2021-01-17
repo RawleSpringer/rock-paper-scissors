@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <script>
+      const computerPlay = () => {
+        const min = 0;
+        const max = 2;
+
+        const randomNum = Math.ceil(Math.random() * (max - min + 1)) - 1;
+
+        const choices = ["rock", "paper", "scissors"];
+
+        return choices[randomNum];
+      };
+
+      const playRound = (playerSelection, computerSelection) => {
+        const serializedPlayerSelection = playerSelection.toLowerCase();
+
+        if (serializedPlayerSelection === computerSelection) {
+          return "Draw, try again";
+        } else if (
+          serializedPlayerSelection === "paper" &&
+          computerSelection === "rock"
+        ) {
+          return "You win paper beats rock";
+        } else if (
+          serializedPlayerSelection === "paper" &&
+          computerSelection === "rock"
+        ) {
+          return "You win paper beats rock";
+        } else if (
+          serializedPlayerSelection === "scissors" &&
+          computerSelection === "paper"
+        ) {
+          return "You win paper beats rock";
+        } else if (
+          serializedPlayerSelection === "rock" &&
+          computerSelection === "scissor"
+        ) {
+          return "You win rock beats scissors";
+        } else {
+          return "Computer Wins";
+        }
+      };
+
+      const game = () => {
+        let playerScore = 0;
+        let computerScore = 0;
+
+        for (let index = 1; index < 6; index++) {
+          let playerSelection = prompt("Rock, Paper or Scissors?");
+          let computerSelection = computerPlay();
+          console.log("The Computer selected " + computerSelection);
+
+          let result = playRound(playerSelection, computerSelection);
+          console.log(result);
+
+          if (result.includes("You")) {
+            playerScore = playerScore + 1;
+          }
+
+          if (result.includes("Computer")) {
+            computerScore = computerScore + 1;
+          }
+        }
+
+        if (playerScore > computerScore) {
+          console.log(
+            `Player wins, the Final Score is ${playerScore} to ${computerScore}`
+          );
+        } else {
+          console.log(
+            `Computer wins, the Final Score is ${playerScore} to ${computerScore}`
+          );
+        }
+      };
+
+      game();
+    </script>
+  </body>
+</html>
