@@ -9,6 +9,16 @@
   </head>
   <body>
     <div class="container">
+      <div class="scoreboard">
+        <div>
+          <h1>Player Score</h1>
+          <h3></h3>
+        </div>
+        <div>
+          <h1>Computer Score</h1>
+          <h3></h3>
+        </div>
+      </div>
       <div id="main-heading">
         <h1>Hey Wa ya say Bey?</h1>
         <h2>Les play some Rawk,Paypuh,Sizzuz...shoot</h2>
@@ -18,6 +28,7 @@
         <button>Paypuh</button>
         <button>Sizzuz</button>
       </div>
+      <div id="results"></div>
     </div>
     <script>
       const computerPlay = () => {
@@ -33,33 +44,53 @@
 
       const playRound = (playerSelection, computerSelection) => {
         const serializedPlayerSelection = playerSelection.toLowerCase();
+        let results = document.getElementById("results");
 
         if (serializedPlayerSelection === computerSelection) {
-          return "Draw, try again";
+          results.textContent = "Das a draw bey, go again";
+        } else if (
+          serializedPlayerSelection === "rock" &&
+          computerSelection === "scissors"
+        ) {
+          results.textContent = "You win bey!..rock beats scissors";
         } else if (
           serializedPlayerSelection === "paper" &&
           computerSelection === "rock"
         ) {
-          return "You win paper beats rock";
-        } else if (
-          serializedPlayerSelection === "paper" &&
-          computerSelection === "rock"
-        ) {
-          return "You win paper beats rock";
+          results.textContent = "You win bey!..paper beats rock";
         } else if (
           serializedPlayerSelection === "scissors" &&
           computerSelection === "paper"
         ) {
-          return "You win paper beats rock";
-        } else if (
-          serializedPlayerSelection === "rock" &&
-          computerSelection === "scissor"
-        ) {
-          return "You win rock beats scissors";
+          results.textContent = "You win bey!..scissors beats paper";
         } else {
-          return "Computer Wins";
+          results.textContent = "Da Computer beat you bey..beat it back!";
         }
       };
+
+      /* 
+      User clicks buttton
+        must put event listener for click on all buttons
+        get button value and feed it into playRound function as parameter
+      Button value is captured
+      playRound function is ran
+      results is put in console.log
+      */
+      const choiceButtons = document.querySelectorAll("button");
+
+      choiceButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const textValue = e.innerText;
+          const computerSelection = computerPlay();
+          if (textValue === "Rawk") {
+            playRound("rock", computerSelection);
+          } else if (textValue === "Paypuh") {
+            playRound("paper", computerSelection);
+          } else {
+            playRound("scissors", computerSelection);
+          }
+        });
+      });
 
       // const game = () => {
       //   let playerScore = 0;
@@ -93,7 +124,7 @@
       //   }
       // };
 
-      game();
+      // game();
     </script>
   </body>
 </html>

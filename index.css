@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
 #main-heading {
   text-align: center;
 }
