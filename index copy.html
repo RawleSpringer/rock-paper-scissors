@@ -3,22 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="index.css" />
+
+    <title>Rock Paper Scissors test</title>
   </head>
   <body>
-    <div class="container">
-      <div id="main-heading">
-        <h1>Hey Wa ya say Bey?</h1>
-        <h2>Les play some Rawk,Paypuh,Sizzuz...shoot</h2>
-      </div>
-      <div>
-        <button>Rawk</button>
-        <button>Paypuh</button>
-        <button>Sizzuz</button>
-      </div>
-    </div>
     <script>
       const computerPlay = () => {
         const min = 0;
@@ -61,37 +49,37 @@
         }
       };
 
-      // const game = () => {
-      //   let playerScore = 0;
-      //   let computerScore = 0;
+      const game = () => {
+        let playerScore = 0;
+        let computerScore = 0;
 
-      //   for (let index = 1; index < 6; index++) {
-      //     let playerSelection = prompt("Rock, Paper or Scissors?");
-      //     let computerSelection = computerPlay();
-      //     console.log("The Computer selected " + computerSelection);
+        for (let index = 1; index < 6; index++) {
+          let playerSelection = prompt("Rock, Paper or Scissors?");
+          let computerSelection = computerPlay();
+          console.log("The Computer selected " + computerSelection);
 
-      //     let result = playRound(playerSelection, computerSelection);
-      //     console.log(result);
+          let result = playRound(playerSelection, computerSelection);
+          console.log(result);
 
-      //     if (result.includes("You")) {
-      //       playerScore = playerScore + 1;
-      //     }
+          if (result.includes("You")) {
+            playerScore = playerScore + 1;
+          }
 
-      //     if (result.includes("Computer")) {
-      //       computerScore = computerScore + 1;
-      //     }
-      //   }
+          if (result.includes("Computer")) {
+            computerScore = computerScore + 1;
+          }
+        }
 
-      //   if (playerScore > computerScore) {
-      //     console.log(
-      //       `Player wins, the Final Score is ${playerScore} to ${computerScore}`
-      //     );
-      //   } else {
-      //     console.log(
-      //       `Computer wins, the Final Score is ${playerScore} to ${computerScore}`
-      //     );
-      //   }
-      // };
+        if (playerScore > computerScore) {
+          console.log(
+            `Player wins, the Final Score is ${playerScore} to ${computerScore}`
+          );
+        } else {
+          console.log(
+            `Computer wins, the Final Score is ${playerScore} to ${computerScore}`
+          );
+        }
+      };
 
       game();
     </script>
