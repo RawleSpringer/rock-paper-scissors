@@ -9,19 +9,21 @@
   </head>
   <body>
     <div class="container">
+      <img src="./bahamas-flag-large.png" height="145" width="200" />
+      <h1>Round <span id="round-count">0</span></h1>
       <div class="scoreboard">
         <div>
-          <h1>Player Score</h1>
-          <h3></h3>
+          <h2>Player Score</h2>
+          <h3 id="player-score">0</h3>
         </div>
         <div>
-          <h1>Computer Score</h1>
-          <h3></h3>
+          <h2>Computer Score</h2>
+          <h3 id="computer-score">0</h3>
         </div>
       </div>
       <div id="main-heading">
         <h1>Hey Wa ya say Bey?</h1>
-        <h2>Les play some Rawk,Paypuh,Sizzuz...shoot</h2>
+        <h2>Les play some Rawk, Paypuh, Sizzuz...shoot</h2>
       </div>
       <div>
         <button>Rawk</button>
@@ -31,6 +33,12 @@
       <div id="results"></div>
     </div>
     <script>
+      //global variables
+      let gameCount = 0;
+      let computerScore = 0;
+      let playerScore = 0;
+
+      //functions
       const computerPlay = () => {
         const min = 0;
         const max = 2;
@@ -44,44 +52,82 @@
 
       const playRound = (playerSelection, computerSelection) => {
         const serializedPlayerSelection = playerSelection.toLowerCase();
-        let results = document.getElementById("results");
+        const results = document.getElementById("results");
+        const pScore = document.getElementById("player-score");
+        const cScore = document.getElementById("computer-score");
+
+        if (gameCount >= 5) {
+          if (playerScore > computerScore) {
+            results.textContent = `Player wins, the Final Score is ${playerScore} to ${computerScore}`;
+          } else {
+            results.textContent = `Computer wins, the Final Score is ${playerScore} to ${computerScore}`;
+          }
+          gameCount = 0;
+          playerScore = 0;
+          computerScore = 0;
+          pScore.textContent = "0";
+          cScore.textContent = "0";
+          document.getElementById("round-count").textContent = "0";
+
+          return;
+        }
 
         if (serializedPlayerSelection === computerSelection) {
           results.textContent = "Das a draw bey, go again";
+          gameUpdater();
+          pScore.textContent = playerScore.toString();
         } else if (
           serializedPlayerSelection === "rock" &&
           computerSelection === "scissors"
         ) {
           results.textContent = "You win bey!..rock beats scissors";
+          gameUpdater();
+          pScore.textContent = playerScore.toString();
         } else if (
           serializedPlayerSelection === "paper" &&
           computerSelection === "rock"
         ) {
           results.textContent = "You win bey!..paper beats rock";
+          gameUpdater();
+          pScore.textContent = playerScore.toString();
         } else if (
           serializedPlayerSelection === "scissors" &&
           computerSelection === "paper"
         ) {
           results.textContent = "You win bey!..scissors beats paper";
+          gameUpdater();
+          pScore.textContent = playerScore.toString();
         } else {
           results.textContent = "Da Computer beat you bey..beat it back!";
+          gameUpdater();
+          cScore.textContent = computerScore.toString();
         }
       };
 
-      /* 
-      User clicks buttton
-        must put event listener for click on all buttons
-        get button value and feed it into playRound function as parameter
-      Button value is captured
-      playRound function is ran
-      results is put in console.log
-      */
+      const gameUpdater = () => {
+        gameCount += 1;
+        console.log(gameCount);
+        let round = document.getElementById("round-count");
+        round.textContent = gameCount.toString();
+        if (results.textContent.includes("You")) {
+          playerScore += 1;
+        } else if (results.textContent.includes("Computer")) {
+          computerScore += 1;
+        } else {
+          return;
+        }
+      };
+      // EVENT LISTENERS
       const choiceButtons = document.querySelectorAll("button");
 
       choiceButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
           const textValue = e.innerText;
           const computerSelection = computerPlay();
+
+          document.getElementById("results").textContent =
+            "The Computer selected " + computerSelection;
+
           if (textValue === "Rawk") {
             playRound("rock", computerSelection);
           } else if (textValue === "Paypuh") {
@@ -91,40 +137,6 @@
           }
         });
       });
-
-      // const game = () => {
-      //   let playerScore = 0;
-      //   let computerScore = 0;
-
-      //   for (let index = 1; index < 6; index++) {
-      //     let playerSelection = prompt("Rock, Paper or Scissors?");
-      //     let computerSelection = computerPlay();
-      //     console.log("The Computer selected " + computerSelection);
-
-      //     let result = playRound(playerSelection, computerSelection);
-      //     console.log(result);
-
-      //     if (result.includes("You")) {
-      //       playerScore = playerScore + 1;
-      //     }
-
-      //     if (result.includes("Computer")) {
-      //       computerScore = computerScore + 1;
-      //     }
-      //   }
-
-      //   if (playerScore > computerScore) {
-      //     console.log(
-      //       `Player wins, the Final Score is ${playerScore} to ${computerScore}`
-      //     );
-      //   } else {
-      //     console.log(
-      //       `Computer wins, the Final Score is ${playerScore} to ${computerScore}`
-      //     );
-      //   }
-      // };
-
-      // game();
     </script>
   </body>
 </html>
